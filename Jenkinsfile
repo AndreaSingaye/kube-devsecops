@@ -28,5 +28,10 @@ pipeline {
           }
         }
       }
+      stage('Deployement Kubernetes'){
+        steps {
+          sh 'kubectl apply -f '
+        }
+      }
     }    
 }
