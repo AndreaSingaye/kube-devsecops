@@ -1,6 +1,5 @@
 pipeline {
   agent any
-
   stages {
       stage('Build Artifact') {
             steps {
@@ -18,7 +17,6 @@ pipeline {
           jacoco execPattern: 'target/jacoco.exec'
         }
       }
-     }
-    
+     }    
     }
 }
