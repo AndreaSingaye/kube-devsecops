@@ -40,7 +40,7 @@ pipeline {
            steps {
             
                withCredentials([string(credentialsId: 'token-solar-andrea', variable: 'TOKEN_SONAR')]) {
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=testsonar -Dsonar.projectName='testsonar'-Dsonar.host.url=http://demo-test2.eastus.cloudapp.azure.com:9020 -Dsonar.token=$TOKEN_SONAR"
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=testsonar -Dsonar.projectName=testsonar -Dsonar.host.url=http://demo-test2.eastus.cloudapp.azure.com:9020 -Dsonar.token=$TOKEN_SONAR"
                }
       
             }
