@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: test-andrea
+  checksum: 8fe8068c2e67655063c393ecf7326b1884ed7c88a6254ad3bfacbf304dcc6205
+version: ""
