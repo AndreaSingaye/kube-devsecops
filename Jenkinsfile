@@ -18,6 +18,15 @@ pipeline {
             }
           }
       }
+      stage('SonarQube - SAST') {    
+           steps {
+            
+               withCredentials([string(credentialsId: 'token-solar-andrea', variable: 'TOKEN_SONAR')]) {
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=testsonar -Dsonar.projectName=testsonar -Dsonar.host.url=http://demo-test2.eastus.cloudapp.azure.com:9020 -Dsonar.token=$TOKEN_SONAR"
+               }
+      
+            }
+      }
       stage('Docker Build and Push') {
         steps {
           withCredentials([string(credentialsId: 'dockerhub-password-andrea', variable: 'DOCKER_HUB_PASSWORD')]) {
@@ -35,15 +44,6 @@ pipeline {
                sh "kubectl apply -f k8s_deployment_service.yaml"
           }
         }
-      }
-      stage('SonarQube - SAST') {    
-           steps {
-            
-               withCredentials([string(credentialsId: 'token-solar-andrea', variable: 'TOKEN_SONAR')]) {
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=testsonar -Dsonar.projectName=testsonar -Dsonar.host.url=http://demo-test2.eastus.cloudapp.azure.com:9020 -Dsonar.token=$TOKEN_SONAR"
-               }
-      
-            }
-        }
+      }♥
     }    
 }
