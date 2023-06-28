@@ -28,10 +28,15 @@ pipeline {
           }
         }
       }
-      stage('Deployement Kubernetes'){
-        steps {
-          sh 'kubectl apply -f k8s_deployment_service.yaml'
-        }
+      stage('Deployment Kubernetes  ') {
+      steps {
+        withKubeConfig([credentialsId: 'kubeconfig-andrea	']) {
+               sh "sed -i 's#replaceandrea43700/app-test-jenkins:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+               sh "kubectl apply -f k8s_deployment_service.yaml"
+             }
+      }
+ 
+    }
       }
     }    
 }
