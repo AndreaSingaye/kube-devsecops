@@ -27,18 +27,18 @@ pipeline {
       
             }
       }
-    stage('Vulnerability Scan - Docker') {
-   steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-             sh "mvn dependency-check:check"
-        }
-        }
-        post { 
-      always { 
+      stage('Vulnerability Scan - Docker') {
+         steps {
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+               sh "mvn dependency-check:check"
+            }
+          }
+          post { 
+            always { 
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-                }
-        }
-}
+            }
+          }
+      }
       stage('Docker Build and Push') {
         steps {
           withCredentials([string(credentialsId: 'dockerhub-password-andrea', variable: 'DOCKER_HUB_PASSWORD')]) {
@@ -56,6 +56,6 @@ pipeline {
                sh "kubectl apply -f k8s_deployment_service.yaml"
           }
         }
-      }♥
+      }
     }    
 }
